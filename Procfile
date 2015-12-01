@@ -1,1 +1,1 @@
-web: python concertipy.ipy
+web: python concertipy.py
