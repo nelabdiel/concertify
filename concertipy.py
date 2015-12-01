@@ -3,7 +3,7 @@ import simplejson
 import requests
 import spotipy
 import spotipy.util as util
-from requests_oauthlib import OAuth1
+from requests-oauthlib import OAuth1
 from bs4 import BeautifulSoup
 from random import randint
 import math
