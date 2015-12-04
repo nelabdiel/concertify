@@ -3,7 +3,6 @@ import os
 from flask import Flask, render_template, request, redirect
 import simplejson
 import requests
-from requests_oauthlib import OAuth1
 from bs4 import BeautifulSoup
 from random import randint
 import math
