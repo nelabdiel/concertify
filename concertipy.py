@@ -3,9 +3,6 @@ import os
 from flask import Flask, render_template, request, redirect
 import simplejson
 import requests
-from bs4 import BeautifulSoup
-from random import randint
-import math
 import base64
 import json
 import urllib
@@ -28,9 +25,11 @@ with open("spotify.json.nogit") as fh:
         secrets = simplejson.loads(fh.read())
         
 CLIENT_ID=secrets["client_id"]
+
 CLIENT_SECRET=secrets["client_secret"]
 
 REDIRECT_URI =secrets["redirect_uri"]
+
 SCOPE = "user-follow-read"
 SHOW_DIALOG_bool = True
 SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
@@ -43,7 +42,7 @@ auth_query_parameters = {
     "client_id": CLIENT_ID
 }
 
-app.var={}
+app.vars = {}
 
 #Index page
 @app.route('/')
@@ -58,6 +57,8 @@ def index():
         return render_template('index.html')
     
     else:
+        app.vars['city'] = request.form['city']
+        app.vars['State'] = request.form['State']
         return redirect('/login')
       
         
@@ -71,7 +72,17 @@ def login():
 
 @app.route("/callback/q")
 def callback():
-    # Auth Step 4: Requests refresh and access tokens
+    #user location
+    usercity = app.vars['city']
+    userstate = app.vars['State']
+    userplace = "{},{}".format(usercity, userstate)
+    userplace = userplace.replace(" ", "%20")
+    userplace = "{}={}".format('location', userplace)
+    
+    
+    
+    
+    # Auth Step 2: Requests refresh and access tokens
     auth_token = str(request.args["code"])
     code_payload = {"redirect_uri": REDIRECT_URI, "grant_type":"authorization_code", "code": auth_token}
     base64encoded = base64.b64encode(str(CLIENT_ID + ':' + CLIENT_SECRET).encode())
@@ -93,60 +104,38 @@ def callback():
     
       
     #the good stuff
-    Artistsname = []
-    Artistslist = []
+    artists_api = ''
 
     for i in range(len(artists)):
-        Artistsname.append(artists[i]["name"])
         lower = artists[i]["name"].lower()
-        artist = lower.replace(" ","-")
-        Artistslist.append(artist)       
+        artist = "{}[]={}".format('artists', lower.replace(" ","%20"))
+        artists_api = "{}&{}".format(artists_api, artist)
         
-        
-    links = []
-
-    for i in range(len(Artistslist)):
-        links.append("".join(["http://concerts.eventful.com/", Artistslist[i]]))
-
-    #Here we pull up the concerts for an artist
-    x = randint(1, len(links)-1)
-
-
-    while BeautifulSoup(requests.get(links[x]).content).find_all("tr") == [] or x==0:
-        x = (x+1)%(len(links)-1)
-
-    rows = BeautifulSoup(requests.get(links[x]).content).find_all("tr")    
     
-    tdlist = []
-    for row in rows:
-        tdlist.append(row.find_all("td")) 
+    #bandsintown api
+    urlbtapi = 'http://api.bandsintown.com/events/search?'
+    bttoken = '&format=json&app_id=concertipy'    
+    userplace_radius = "{}&{}".format(userplace, 'radius=150')
+
+           
+
+    urlsearch =  "{}{}&{}{}".format(urlbtapi, artists_api, userplace_radius, bttoken)   
+    r=requests.get(urlsearch)
+    data = json.loads(r.text)
     
-
-    linkx = []
-    namex = []
-    cityx = []
-    placex = []
-    datex = []
-    Eventx = []
-    for i in range(1, len(tdlist)): 
-        for link in tdlist[i][1].find_all("a"):
-            linkx.append(str(link.get("href")))    
-    
-        namex.append(str(tdlist[i][1].find_all("span"))[23:][:-8])
-        cityx.append(str(tdlist[i][2].find_all("span")[2])[33:][:-7])
-        placex.append(str(tdlist[i][2].find_all("span")[3])[31:][:-7])
-        for element in tdlist[i][0].find_all("meta"):
-            datex.append(element.get("content"))
-
-
+    #concert info
+    allinfo = []
+    for i in range(len(data)):
         
-    artist=Artistslist[x]
+        date = data[i]["datetime"].replace("T", " at ")
+        linkevent = data[i]["ticket_url"]
+        Artistname = data[i]["artists"][0]["name"]
+        venue = data[i]["venue"]["name"]
+        eventloc = "{}, {}, {}".format(data[i]["venue"]["city"], data[i]["venue"]["region"], data[i]["venue"]["country"])
         
-    html = render_template(
-        'results.html',
-        artist=Artistsname[x], link=linkx[0], name=namex[0], city=cityx[0], place=placex[0],
-        date=datex[0]
-    )
+        allinfo.append((linkevent, Artistname, venue, eventloc, date))
+        
+    html = render_template('results.html', link=allinfo)
     return encode_utf8(html)
         
         

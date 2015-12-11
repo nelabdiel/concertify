@@ -5,7 +5,8 @@
     <meta http-equiv='content-type' content='text/html; charset=utf-8' />
 
     <title>ConcertiPy</title>
-    <link rel="stylesheet" type=text/css href="../static/style.css">  
+      
+    <link rel="stylesheet" type=text/css href="../static/style2.css">  
     <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.9.3.min.css" type="text/css" />
     <script typee="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-0.9.3.min.js"></script>
 
@@ -16,18 +17,20 @@
   </head>
   <body>
       <center>
-          <h1><font color="white">ConcertiPy v1.0 </font></h1>
-          
-      <p><h3><font color="black">{{artist}}'s next concert: </font></h3><p>    
+          <h1><font color="white">ConcertiPy</font></h1>
       
-          
-          <p><a href='{{link}}'> <font color="white">{{name}} at {{city}}, {{place}} on {{date}}.</font> </a></p>
-          
+          {%for item in link%}
+          <p><h3><font color="white">{{item[1]}} will be at </font></h3><p> 
+          <p><a href={{item[0]}}> <font color ="white">{{item[2]}} in {{item[3]}} on {{item[4]}}. </font></a></p>
+          {% endfor %}
            
-      
-      <h5><a href="/login">Click to see new results.</a></h5>
+          
           
           
       </center>
   </body>
+    <center>
+    <h6><font color="white">This is a Python based app that uses Flask, the Spotify API and Bandsintown API.</font></h6>
+        <h6><font color="white">Developed by Nel Abdiel</font></h6>
+    </center>  
 </html>
