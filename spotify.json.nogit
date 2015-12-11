@@ -1,0 +1,5 @@
+{
+"client_id": "299e4d4f46f54124a15d888bc7c52e20",
+"client_secret": "c4c28ed3f080472f9cd11bd2b5f13f43",
+"redirect_uri": "http://concertipy.herokuapp.com/callback/q"
+}
