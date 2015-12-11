@@ -4,9 +4,9 @@
     <meta charset='utf-8' />
     <meta http-equiv='content-type' content='text/html; charset=utf-8' />
 
-    <title>ConcertiPy</title>
+    <title>ConcertiPy!</title>
       
-    <link rel="stylesheet" type=text/css href="../static/style2.css">  
+    <link rel="stylesheet" type=text/css href="../static/style.css">  
     <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.9.3.min.css" type="text/css" />
     <script typee="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-0.9.3.min.js"></script>
 
@@ -17,20 +17,37 @@
   </head>
   <body>
       <center>
-          <h1><font color="white">ConcertiPy</font></h1>
+          <br>
+          <h1><font color="white">Concerti</font><font color="red">Py!</font>
+          <br>
+               
+          </h1>
+          
+          <br>
+          <br>
+          <h2><font color="white">Here's a list of concerts based on your location and the artists you follow on Spotify.</font></h2>
+          
+          <br>
       
           {%for item in link%}
-          <p><h3><font color="white">{{item[1]}} will be at </font></h3><p> 
+          <p><h4><font color="white">{{item[1]}} will be at </font></h4><p> 
           <p><a href={{item[0]}}> <font color ="white">{{item[2]}} in {{item[3]}} on {{item[4]}}. </font></a></p>
+          
+          <br>
           {% endfor %}
            
-          
-          
+          <br>
+          <br>
+          <br>
+          <a href="index.html"><font color="white">Go back.</font></a>
           
       </center>
   </body>
     <center>
-    <h6><font color="white">This is a Python based app that uses Flask, the Spotify API and Bandsintown API.</font></h6>
-        <h6><font color="white">Developed by Nel Abdiel</font></h6>
+    <h6><font color="white">A Python based app that uses Flask, the Spotify API and the Bandsintown API.</font></h6>
+        <h6><font color="white">Developed by </font><a href="http://www.nelabdiel.com"><font color="blue">Nel Abdiel</font></a></h6>
     </center>  
+    <br>
+          <br>
+          <br>
 </html>

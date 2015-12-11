@@ -1,4 +1,4 @@
-body            { font-family: sans-serif; background: linear-gradient(green, white); background-repeat: no-repeat }
+body            { font-family: sans-serif; background: linear-gradient(black, white); background-repeat: no-repeat }
 a, h1, h2       { color: black; }
 h1, h2          { font-family: 'Georgia', serif; margin: 0; }
 h1              { border-bottom: 2px solid #eee; }
