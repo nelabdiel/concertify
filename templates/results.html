@@ -6,22 +6,19 @@
 
     <title>ConcertiPy!</title>
       
-    <link rel="stylesheet" type=text/css href="../static/style.css">  
-    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.9.3.min.css" type="text/css" />
-    <script typee="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-0.9.3.min.js"></script>
-
-    
-
+        <link rel="stylesheet" type=text/css href="../static/style.css">
+		
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
    
 
   </head>
   <body>
       <center>
           <br>
-          <h1><font color="white">Concerti</font><font color="red">Py!</font>
+          <h1>Concerti<font color="red">Py!</font></h1>
           <br>
                
-          </h1>
+          
           
           <br>
           <br>
@@ -30,14 +27,14 @@
           <br>
       
           {%for item in link%}
-          <p><h4><font color="white">{{item[1]}} will be at </font></h4><p> 
-          <p><a href={{item[0]}}> <font color ="white">{{item[2]}} in {{item[3]}} on {{item[4]}}. </font></a></p>
+          <p><h4><font color="black">{{item[1]}} will be at </font></h4><p> 
+          <p><a href={{item[0]}}> <font color ="black">{{item[2]}} in {{item[3]}} on {{item[4]}}. </font></a></p>
           
           <br>
           {% endfor %}
            
           <br>
-          <a href="/index"><font color="white">Go back</font></a>
+          <a href="/index"><font color="black">Go back</font></a>
           <br>
           <br>
           <br>
@@ -47,8 +44,8 @@
       </center>
   </body>
     <center>
-    <h6><font color="white">A Python based app that uses Flask, the Spotify API and the Bandsintown API.</font></h6>
-        <h6><font color="white">Developed by </font><a href="http://www.nelabdiel.com"><font color="blue">Nel Abdiel</font></a></h6>
+    <h6><font color="black">A Python based app that uses Flask, the Spotify API and the Bandsintown API.</font></h6>
+        <h6><font color="black">Developed by </font><a href="http://www.nelabdiel.com"><font color="blue">Nel Abdiel</font></a></h6>
     </center>  
     <br>
           <br>
