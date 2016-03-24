@@ -1,5 +1,8 @@
-body            { font-family: sans-serif; background-image: url(back.jpg); color: white;  background-repeat: no-repeat; background-attachment: fixed;
+body            { font-family: sans-serif; background-image: url(back.jpg) !important; color: white;  background-repeat: no-repeat !important; background-position: 0% 0% !important;background-attachment: fixed !important;
  }
+
+
+
 a, h1, h2       { color: white; }
 h1, h2          { font-family: 'Georgia', serif; margin: 0; }
 h2              { font-size: 1.2em; }
